@@ -1,107 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Services | Prime Chimney Care</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prime Chimney Care - Services</title>
+  <style>
+body{font-family:Arial,sans-serif;margin:0;background:#f5f5f5}
+.header{background:#fff;padding:20px;font-size:28px;font-weight:bold;position:sticky;top:0}
+.section-title{font-size:28px;font-weight:bold;padding:20px 15px 10px}
+.card{display:flex;background:#fff;margin:15px;border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.card img{width:140px;height:140px;object-fit:cover}
+.info{padding:12px;flex:1}
+.price{font-size:22px;font-weight:bold;margin:8px 0}
+.btn{background:#6c3cff;color:#fff;border:none;padding:10px 16px;border-radius:8px}
+.cartbar{position:fixed;left:0;right:0;bottom:0;background:#6c3cff;color:#fff;padding:15px;display:flex;justify-content:space-between}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5)}
+.box{background:#fff;margin:80px auto;padding:20px;width:90%;max-width:500px;border-radius:12px}
+.login{width:100%;padding:14px;border:none;background:#6c3cff;color:#fff;border-radius:10px}
+</style>
+ </head>
+ <body>
+  <div class="header">Prime Chimney Care Services</div>
+  <div class="section-title">Services</div>
+  <div class="card">
+   <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800">
+   <div class="info">
+    <h3>Basic Chimney Service</h3>
+    <p>Filter cleaning and degreasing</p>
+    <div class="price">₹499</div>
+    <button class="btn" onclick="addCart('Basic Chimney Service',499)">Add</button>
+   </div>
+  </div>
+  <div class="card">
+   <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800">
+   <div class="info">
+    <h3>Deep Chimney Service</h3>
+    <p>Complete internal cleaning</p>
+    <div class="price">₹1249</div>
+    <button class="btn" onclick="addCart('Deep Chimney Service',1249)">Add</button>
+   </div>
+  </div>
+  <div class="section-title">Repair</div>
+  <div class="card">
+   <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800">
+   <div class="info">
+    <h3>Motor Repair</h3>
+    <p>Motor and blower repair</p>
+    <div class="price">₹899</div>
+    <button class="btn" onclick="addCart('Motor Repair',899)">Add</button>
+   </div>
+  </div>
+  <div class="section-title">Installation</div>
+  <div class="card">
+   <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800">
+   <div class="info">
+    <h3>Chimney Installation</h3>
+    <p>Professional installation</p>
+    <div class="price">₹599</div>
+    <button class="btn" onclick="addCart('Chimney Installation',599)">Add</button>
+   </div>
+  </div>
+  <div class="cartbar">
+   <div>
+    Cart: <span id="count">0</span>
+   </div>
+   <button class="btn" onclick="showCart()">View Cart</button>
+  </div>
+  <div class="modal" id="modal">
+   <div class="box">
+    <h2>Your Cart</h2>
+    <div id="items"></div>
+    <hr>
+    <h3>Total: ₹<span id="total">0</span></h3>
+    <button class="login" onclick="location.href='login.html'">Login / Sign Up</button>
+   </div>
+  </div>
+  <script>
+let cart=[];
+function addCart(name,price){
+cart.push({name,price});
+document.getElementById('count').innerText=cart.length;
 }
-
-body{
-background:#f5f6fa;
-padding-bottom:100px;
+function showCart(){
+let html='';
+let total=0;
+cart.forEach(i=>{
+html+=`<p>${i.name} - ₹${i.price}</p>`;
+total+=i.price;
+});
+document.getElementById('items').innerHTML=html;
+document.getElementById('total').innerText=total;
+document.getElementById('modal').style.display='block';
 }
-
-/* Header */
-
-.header{
-background:#07152b;
-color:white;
-padding:18px;
-position:sticky;
-top:0;
-z-index:999;
-}
-
-.header h2{
-font-size:24px;
-}
-
-/* Banner */
-
-.banner{
-margin:15px;
-border-radius:20px;
-overflow:hidden;
-position:relative;
-}
-
-.banner img{
-width:100%;
-height:220px;
-object-fit:cover;
-display:block;
-}
-
-.banner-content{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.45);
-display:flex;
-flex-direction:column;
-justify-content:center;
-padding:25px;
-color:white;
-}
-
-.banner-content h1{
-font-size:28px;
-margin-bottom:10px;
-}
-
-.banner-content p{
-font-size:15px;
-}
-
-/* Section */
-
-.section{
-padding:20px;
-}
-
-.section-title{
-font-size:24px;
-font-weight:700;
-margin-bottom:20px;
-}
-
-/* Service Cards */
-
-.services{
-display:grid;
-gap:20px;
-}
-
-.card{
-background:white;
-border-radius:18px;
-overflow:hidden;
-box-shadow:0 4px 20px rgba(0,0,0,.08);
-}
-
-.card img{
+</script>
+ </body>
+</html>.card img{
 width:100%;
 height:220px;
 object-fit:cover;
