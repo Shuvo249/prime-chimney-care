@@ -84,7 +84,23 @@ left:auto;
     <div id="items"></div>
     <hr>
     <h3>Total: ₹<span id="total">0</span></h3>
-    <button class="login" onclick="location.href='login.html'">Login / Sign Up</button>
+    <input
+type="text"
+id="customerName"
+placeholder="Enter Your Name"
+style="width:100%;padding:12px;margin:10px 0;border:1px solid #ddd;border-radius:8px;"
+>
+
+<input
+type="tel"
+id="customerPhone"
+placeholder="Enter Mobile Number"
+style="width:100%;padding:12px;margin:10px 0;border:1px solid #ddd;border-radius:8px;"
+>
+
+<button class="login" onclick="bookNow()">
+Continue Booking
+</button>
    </div>
   </div>
   <script>
@@ -104,6 +120,46 @@ document.getElementById('items').innerHTML=html;
 document.getElementById('total').innerText=total;
 document.getElementById('modal').style.display='block';
 }
+
+   function bookNow(){
+
+const name =
+document.getElementById("customerName").value;
+
+const phone =
+document.getElementById("customerPhone").value;
+
+if(!name || !phone){
+alert("Please enter name and mobile number");
+return;
+}
+
+let services = "";
+let total = 0;
+
+cart.forEach(item=>{
+services += item.name + " - ₹" + item.price + "\n";
+total += item.price;
+});
+
+const msg =
+`Prime Chimney Care Booking
+
+Name: ${name}
+Phone: ${phone}
+
+Services:
+${services}
+
+Total: ₹${total}`;
+
+window.open(
+"https://wa.me/91YOURNUMBER?text=" +
+encodeURIComponent(msg),
+"_blank"
+);
+
+   }
 </script>
  </body>
 </html>
