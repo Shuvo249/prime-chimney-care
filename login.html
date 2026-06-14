@@ -62,7 +62,7 @@ padding:14px;
 border:none;
 border-radius:10px;
 background:#0d1b2a;
-color:#fff;
+color:white;
 font-size:16px;
 font-weight:bold;
 cursor:pointer;
@@ -149,13 +149,9 @@ supabaseKey
 );
 
 function showMessage(text,type){
-
-const msg =
-document.getElementById("msg");
-
+const msg = document.getElementById("msg");
 msg.innerHTML = text;
 msg.className = "message " + type;
-
 }
 
 async function sendOTP(){
@@ -164,42 +160,24 @@ const email =
 document.getElementById("email").value.trim();
 
 if(!email){
-
-showMessage(
-"Please enter your email address",
-"error"
-);
-
+showMessage("Please enter your email address","error");
 return;
-
 }
 
-showMessage(
-"Sending OTP...",
-"success"
-);
+showMessage("Sending OTP...","success");
 
 const { error } =
 await supabase.auth.signInWithOtp({
-
 email: email,
-
 options: {
 emailRedirectTo:
-"https://prime-chimney-care-vert.vercel.app"
+"https://prime-chimney-care-vert.vercel.app/"
 }
-
 });
 
 if(error){
-
-showMessage(
-error.message,
-"error"
-);
-
+showMessage(error.message,"error");
 return;
-
 }
 
 showMessage(
@@ -207,10 +185,7 @@ showMessage(
 "success"
 );
 
-document.getElementById(
-"otpSection"
-).style.display = "block";
-
+document.getElementById("otpSection").style.display = "block";
 }
 
 async function verifyOTP(){
@@ -222,34 +197,20 @@ const otp =
 document.getElementById("otp").value.trim();
 
 if(!otp){
-
-showMessage(
-"Please enter OTP",
-"error"
-);
-
+showMessage("Please enter OTP","error");
 return;
-
 }
 
 const { error } =
 await supabase.auth.verifyOtp({
-
 email: email,
 token: otp,
 type: "email"
-
 });
 
 if(error){
-
-showMessage(
-"Invalid OTP",
-"error"
-);
-
+showMessage(error.message,"error");
 return;
-
 }
 
 localStorage.setItem(
