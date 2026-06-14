@@ -163,9 +163,11 @@ async function sendOTP(){
 const email =
 document.getElementById("email").value;
 
-const { data, error } =
-await supabase.auth.signInWithOtp({
-email: email
+const { error } = await supabase.auth.signInWithOtp({
+  email: email,
+  options: {
+    emailRedirectTo: "https://prime-chimney-care-vert.vercel.app"
+  }
 });
 
 console.log("DATA:", data);
