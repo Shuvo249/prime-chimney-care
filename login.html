@@ -163,14 +163,21 @@ async function sendOTP(){
 const email =
 document.getElementById("email").value;
 
-if(!email){
+const { data, error } =
+await supabase.auth.signInWithOtp({
+email: email
+});
 
-showMessage(
-"Please enter email address",
-"error"
-);
+console.log("DATA:", data);
+console.log("ERROR:", error);
 
+if(error){
+alert(error.message);
 return;
+}
+
+alert("OTP Sent Successfully");
+document.getElementById("otpSection").style.display="block";
 }
 
 const { error } =
